@@ -19,23 +19,23 @@ export default new Router({
         {
             path: "/",
             name: "bootstrap",
-            component: loadView('AppMain'),
+            component: loadView('AppMainView'),
             redirect: '/home',
             children: [
                 {
                     path: '/home',
                     name: 'home',
                     components: {
-                        default: loadView('AppMain'),
-                        'router-view-child': loadView('Home')
+                        default: loadView('AppMainView'),
+                        'router-view-child': loadView('HomeView')
                     }
                 },
                 {
                     path: "/about",
                     name: "about",
                     components: {
-                        default: loadView('AppMain'),
-                        'router-view-child': loadView('About')
+                        default: loadView('AppMainView'),
+                        'router-view-child': loadView('AboutView')
                     }
                 },
             ]
@@ -44,15 +44,15 @@ export default new Router({
         {
             path: "*",
             name: 'error',
-            component: loadView('AppError'),
+            component: loadView('AppErrorView'),
             redirect: '/404',
             children: [
                 {
                     path: '/404',
                     name: 'errorNotFound',
                     components: {
-                        default: loadView('AppError'),
-                        'router-view-child': loadView('AppError404')
+                        default: loadView('AppErrorView'),
+                        'router-view-child': loadView('AppError404View')
                     }
                 }
             ]
