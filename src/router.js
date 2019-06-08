@@ -12,16 +12,51 @@ function loadView(view) {
 }
 
 export default new Router({
+    mode: "history",
+    base: process.env.BASE_URL,
     routes: [
+        // Rotas Gerais
         {
-            path: '/',
-            name: 'home',
-            component: loadView('Home'),
+            path: "/",
+            name: "bootstrap",
+            component: loadView('AppMain'),
+            redirect: '/home',
+            children: [
+                {
+                    path: '/home',
+                    name: 'home',
+                    components: {
+                        default: loadView('AppMain'),
+                        'router-view-child': loadView('Home')
+                    }
+                },
+                {
+                    path: "/about",
+                    name: "about",
+                    components: {
+                        default: loadView('AppMain'),
+                        'router-view-child': loadView('About')
+                    }
+                },
+            ]
         },
+        // Rotas de Erros
         {
-            path: '/about',
-            name: 'about',
-            component: loadView('About')
+            path: "*",
+            name: 'error',
+            component: loadView('AppError'),
+            redirect: '/404',
+            children: [
+                {
+                    path: '/404',
+                    name: 'errorNotFound',
+                    components: {
+                        default: loadView('AppError'),
+                        'router-view-child': loadView('AppError404')
+                    }
+                }
+            ]
         }
+
     ]
-})
+});
